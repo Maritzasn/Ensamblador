@@ -1,0 +1,14 @@
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\bin\Debug\net8.0\Ensamblador.exe
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\bin\Debug\net8.0\Ensamblador.deps.json
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\bin\Debug\net8.0\Ensamblador.runtimeconfig.json
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\bin\Debug\net8.0\Ensamblador.dll
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\bin\Debug\net8.0\Ensamblador.pdb
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.AssemblyInfoInputs.cache
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.AssemblyInfo.cs
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.csproj.CoreCompileInputs.cache
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.dll
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\refint\Ensamblador.dll
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.pdb
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.genruntimeconfig.cache
+C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\ref\Ensamblador.dll
