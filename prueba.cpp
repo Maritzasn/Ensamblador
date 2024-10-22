@@ -1,6 +1,6 @@
 static void Main(string[] args)
 {
-    char x, y;
+    int x, y;
 
     x = (3 + 5) * 8 - (10 - 4) / 2; // 61
     x++;                            // 62
@@ -12,6 +12,9 @@ static void Main(string[] args)
             x = 1;
         }
     }
-
-    y = 0;
+    x=0;
+    while (x != 10)
+    {
+        x++;
+    }
 }

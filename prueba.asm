@@ -1,7 +1,6 @@
 ; Autor: Camila Patricia Mata Gallegos
 ; Analisis léxico
 ; Analizador Sintactico
-; Analizador Semantico
 
 extern fflush
 extern printf
@@ -13,82 +12,97 @@ segment .text
 
 _main:
 ; Asignacion a x
-	mov ax, 3
-	push ax
-	mov ax, 5
-	push ax
-	pop bx
-	pop ax
-	add ax, bx
-	push ax
-	mov ax, 8
-	push ax
-	pop bx
-	pop ax
-	mul bx
-	push ax
-	mov ax, 10
-	push ax
-	mov ax, 4
-	push ax
-	pop bx
-	pop ax
-	sub ax, bx
-	push ax
-	mov ax, 2
-	push ax
-	pop bx
-	pop ax
-	div bx
-	push ax
-	pop bx
-	pop ax
-	sub ax, bx
-	push ax
-	pop ax
-	mov x, ax
+	mov eax, 3
+	push eax
+	mov eax, 5
+	push eax
+	pop ebx
+	pop eax
+	add eax, ebx
+	push eax
+	mov eax, 8
+	push eax
+	pop ebx
+	pop eax
+	mul ebx
+	push eax
+	mov eax, 10
+	push eax
+	mov eax, 4
+	push eax
+	pop ebx
+	pop eax
+	sub eax, ebx
+	push eax
+	mov eax, 2
+	push eax
+	pop ebx
+	pop eax
+	div ebx
+	push eax
+	pop ebx
+	pop eax
+	sub eax, ebx
+	push eax
+	pop eax
+	mov dword +[x], eax
 ; Termina asignacion a x
 ; Asignacion a x
-	inc x
+	inc dword [x]
 ; Termina asignacion a x
 ; If1
-	mov ax, x
-	push ax
-	mov ax, 62
-	push ax
-	pop ax
-	pop bx
-	cmp ax, bx
+	mov eax, x
+	push eax
+	mov eax, 62
+	push eax
+	pop eax
+	pop ebx
+	cmp eax, ebx
 	jne _IF1
 ; Asignacion a x
-	mov ax, 0
-	push ax
-	pop ax
-	mov x, ax
+	mov eax, 0
+	push eax
+	pop eax
+	mov dword +[x], eax
 ; Termina asignacion a x
 ; If2
-	mov ax, x
-	push ax
-	mov ax, 0
-	push ax
-	pop ax
-	pop bx
-	cmp ax, bx
+	mov eax, x
+	push eax
+	mov eax, 0
+	push eax
+	pop eax
+	pop ebx
+	cmp eax, ebx
 	je _IF2
 ; Asignacion a x
-	mov ax, 1
-	push ax
-	pop ax
-	mov x, ax
+	mov eax, 1
+	push eax
+	pop eax
+	mov dword +[x], eax
 ; Termina asignacion a x
 _IF2:
 _IF1:
-; Asignacion a y
-	mov ax, 0
-	push ax
-	pop ax
-	mov y, ax
-; Termina asignacion a y
+; Asignacion a x
+	mov eax, 0
+	push eax
+	pop eax
+	mov dword +[x], eax
+; Termina asignacion a x
+; While 1
+_WhileIn1:
+	mov eax, x
+	push eax
+	mov eax, 10
+	push eax
+	pop eax
+	pop ebx
+	cmp eax, ebx
+	je WhileFin2
+; Asignacion a x
+	inc dword [x]
+; Termina asignacion a x
+	jmp _WhileIn1
+WhileFin2:
 	add esp, 4
 
 	mov eax, 1
@@ -96,5 +110,5 @@ _IF1:
 	int 0x80
 
 segment .data
-	x db 0
-	y db 0
+	x dd 0
+	y dd 0
