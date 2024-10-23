@@ -12,7 +12,6 @@ static void Main(string[] args)
             x = 1;
         }
     }
-    x=0;
     for (x = 0; x != 10; x++)
     {
         y = x * 2;

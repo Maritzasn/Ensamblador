@@ -82,12 +82,6 @@ main:
 ; Termina asignacion a x
 _IF2:
 _IF1:
-; Asignacion a x
-	mov eax, 0
-	push eax
-	pop eax
-	mov dword [x], eax
-; Termina asignacion a x
 ; For 0
 ; Asignacion a x
 	mov eax, 0

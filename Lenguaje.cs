@@ -12,8 +12,8 @@ using System.Threading.Tasks;
     2. Hacer el Console.Write y el Console.WriteLine
     3. Hacer el Read y el ReadLine
     4. Considerar el else en el if
-    5. Programas el While
-    6. Programar el For
+    5. Programas el While - listo
+    6. Programar el For (pendiente de revisar si funciona correctamente)
     Tarea: descargar el IDE
 */
 
