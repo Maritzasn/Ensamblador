@@ -244,6 +244,7 @@ namespace Ensamblador
             else if (Contenido == "--")
             {
                 match("--");
+                asm.WriteLine("\tdec dword [" + variable+"]");
                 nuevoValor--;
             }
             else if (Contenido == "+=")
@@ -252,6 +253,7 @@ namespace Ensamblador
                 Expresion();
                 
                 asm.WriteLine("\tpop eax");
+                asm.WriteLine("\tadd dword [" + variable + "], eax");
             }
             else if (Contenido == "-=")
             {
@@ -259,26 +261,37 @@ namespace Ensamblador
                 Expresion();
                 
                 asm.WriteLine("\tpop eax");
+                asm.WriteLine("\tsub dword [" + variable + "], eax");
             }
             else if (Contenido == "*=")
             {
                 match("*=");
                 Expresion();
-                asm.WriteLine("\tpop eax");
+                asm.WriteLine("\tpop ebx");
+                asm.WriteLine("\tmov eax, dword [" + variable + "]");
+                asm.WriteLine("\tmul ebx");
+                asm.WriteLine("\tmov dword [" + variable + "], eax");
             }
             else if (Contenido == "/=")
             {
                 match("/=");
                 Expresion();
                 
-                asm.WriteLine("\tpop eax");
+                asm.WriteLine("\tpop ebx");
+                asm.WriteLine("\tmov eax, dword [" + variable + "]");
+                asm.WriteLine("\tdiv ebx");
+                asm.WriteLine("\tmov dword [" + variable + "], eax");
             }
             else
             {
                 match("%=");
                 Expresion();
                 
-                asm.WriteLine("\tpop eax");
+                asm.WriteLine("\tpop ebx");
+                asm.WriteLine("\tmov eax, dword [" + variable + "]");
+                asm.WriteLine("\txor edx, edx");
+                asm.WriteLine("\tdiv ebx");
+                asm.WriteLine("\tmov dword [" + variable + "], edx");
             }
             //match(";");
                 //MODIFICAR TIPODATOEXPRESIÓN
@@ -288,23 +301,6 @@ namespace Ensamblador
             asm.WriteLine("; Termina asignacion a " + variable);
             return nuevoValor;
         }
-        private Variable.TipoDato valorToTipo(float valor)
-        {
-            if (valor % 1 != 0)
-            {
-                return Variable.TipoDato.Float;
-            }
-            else if (valor <= 255)
-            {
-                return Variable.TipoDato.Char;
-            }
-            else if (valor <= 65535)
-            {
-                return Variable.TipoDato.Int;
-            }
-            return Variable.TipoDato.Float;
-        }
-       
         // If -> if (Condicion) bloqueInstrucciones | instruccion
         // (else bloqueInstrucciones | instruccion)?
         private void If()

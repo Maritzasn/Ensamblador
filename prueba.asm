@@ -8,9 +8,9 @@ extern scanf
 extern stdout
 
 segment .text
-	global _main
+	global main
 
-_main:
+main:
 ; Asignacion a x
 	mov eax, 3
 	push eax
@@ -45,7 +45,7 @@ _main:
 	sub eax, ebx
 	push eax
 	pop eax
-	mov dword +[x], eax
+	mov dword [x], eax
 ; Termina asignacion a x
 ; Asignacion a x
 	inc dword [x]
@@ -63,7 +63,7 @@ _main:
 	mov eax, 0
 	push eax
 	pop eax
-	mov dword +[x], eax
+	mov dword [x], eax
 ; Termina asignacion a x
 ; If2
 	mov eax, x
@@ -78,7 +78,7 @@ _main:
 	mov eax, 1
 	push eax
 	pop eax
-	mov dword +[x], eax
+	mov dword [x], eax
 ; Termina asignacion a x
 _IF2:
 _IF1:
@@ -86,7 +86,7 @@ _IF1:
 	mov eax, 0
 	push eax
 	pop eax
-	mov dword +[x], eax
+	mov dword [x], eax
 ; Termina asignacion a x
 ; While 1
 _WhileIn1:
