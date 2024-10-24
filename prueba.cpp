@@ -12,9 +12,8 @@ static void Main(string[] args)
             x = 1;
         }
     }
-    x=0;
-    while (x != 10)
+    for (x = 0; x != 10; x++)
     {
-        x++;
+        y = x * 2;
     }
 }

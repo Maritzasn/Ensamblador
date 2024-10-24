@@ -13,3 +13,18 @@ C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\En
 C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.genruntimeconfig.cache
 C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\ref\Ensamblador.dll
 C:\Users\mokka\OneDrive\Imágenes\Universidad\Quinto semestre\LyAII\proyectos\Ensamblador\obj\Debug\net8.0\Ensamblador.sourcelink.json
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\bin\Debug\net8.0\Ensamblador.exe
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\bin\Debug\net8.0\Ensamblador.deps.json
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\bin\Debug\net8.0\Ensamblador.runtimeconfig.json
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\bin\Debug\net8.0\Ensamblador.dll
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\bin\Debug\net8.0\Ensamblador.pdb
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.GeneratedMSBuildEditorConfig.editorconfig
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.AssemblyInfoInputs.cache
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.AssemblyInfo.cs
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.csproj.CoreCompileInputs.cache
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.sourcelink.json
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.dll
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\refint\Ensamblador.dll
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.pdb
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.genruntimeconfig.cache
+D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\ref\Ensamblador.dll

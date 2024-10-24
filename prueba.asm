@@ -82,14 +82,14 @@ main:
 ; Termina asignacion a x
 _IF2:
 _IF1:
+; For 0
 ; Asignacion a x
 	mov eax, 0
 	push eax
 	pop eax
 	mov dword [x], eax
 ; Termina asignacion a x
-; While 1
-_WhileIn1:
+_ForCond1:
 	mov eax, x
 	push eax
 	mov eax, 10
@@ -97,12 +97,28 @@ _WhileIn1:
 	pop eax
 	pop ebx
 	cmp eax, ebx
-	je WhileFin2
+	je ForFin2
+	jmp _ForIni0
+_ForIncr3:
 ; Asignacion a x
 	inc dword [x]
 ; Termina asignacion a x
-	jmp _WhileIn1
-WhileFin2:
+	jmp _ForCond1
+_ForIni0:
+; Asignacion a y
+	mov eax, x
+	push eax
+	mov eax, 2
+	push eax
+	pop ebx
+	pop eax
+	mul ebx
+	push eax
+	pop eax
+	mov dword [y], eax
+; Termina asignacion a y
+	jmp _ForIncr3
+ForFin2:
 	add esp, 4
 
 	mov eax, 1
