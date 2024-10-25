@@ -51,74 +51,32 @@ main:
 	inc dword [x]
 ; Termina asignacion a x
 ; If1
-	mov eax, x
+	mov eax, [x]
 	push eax
 	mov eax, 62
 	push eax
-	pop eax
 	pop ebx
+	pop eax
 	cmp eax, ebx
-	jne _IF1
+	je _IF1
 ; Asignacion a x
 	mov eax, 0
 	push eax
 	pop eax
 	mov dword [x], eax
 ; Termina asignacion a x
-; If2
-	mov eax, x
-	push eax
-	mov eax, 0
-	push eax
-	pop eax
-	pop ebx
-	cmp eax, ebx
-	je _IF2
+	jmp _IF1
+_Else1:
 ; Asignacion a x
-	mov eax, 1
-	push eax
-	pop eax
-	mov dword [x], eax
-; Termina asignacion a x
-_IF2:
-_IF1:
-; For 0
-; Asignacion a x
-	mov eax, 0
-	push eax
-	pop eax
-	mov dword [x], eax
-; Termina asignacion a x
-_ForCond1:
-	mov eax, x
-	push eax
-	mov eax, 10
-	push eax
-	pop eax
-	pop ebx
-	cmp eax, ebx
-	je ForFin2
-	jmp _ForIni0
-_ForIncr3:
-; Asignacion a x
-	inc dword [x]
-; Termina asignacion a x
-	jmp _ForCond1
-_ForIni0:
-; Asignacion a y
-	mov eax, x
-	push eax
 	mov eax, 2
 	push eax
-	pop ebx
 	pop eax
-	mul ebx
-	push eax
-	pop eax
-	mov dword [y], eax
-; Termina asignacion a y
-	jmp _ForIncr3
-ForFin2:
+	mov dword [x], eax
+; Termina asignacion a x
+	jmp _FinElse2
+_IF1:
+	jmp _Else1
+_FinElse2:
 	add esp, 4
 
 	mov eax, 1

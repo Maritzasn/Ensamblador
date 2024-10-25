@@ -22,20 +22,20 @@ namespace Ensamblador
     public class Lenguaje : Sintaxis
     {
         private List<Variable> listaVariables;
-        private int cIFs, cDos, cWhiles, cFors;
+        private int cIFs, cDos, cWhiles, cFors, cElses;
         public Lenguaje()
         {
             log.WriteLine("Analizador Sintactico");
             asm.WriteLine("; Analizador Sintactico");
 
             listaVariables = new List<Variable>();
-            cIFs = cDos = cWhiles = 1;
+            cIFs = cDos = cWhiles = cElses = 1;
         }
         public Lenguaje(string nombre) : base(nombre)
         {
             log.WriteLine("Analizador Sintactico");
             listaVariables = new List<Variable>();
-            cIFs = cDos = cWhiles = 1;
+            cIFs = cDos = cWhiles = cElses = 1;
         }
         // Programa  -> Librerias? Main
         public void Programa()
@@ -307,6 +307,9 @@ namespace Ensamblador
         {
             asm.WriteLine("; If" + cIFs);
             string etiqueta = "_IF" + cIFs++;
+            string etiquetaElse = "_Else" + cElses++;
+            string FinElse = "_FinElse" + cElses++;
+            bool HayElse = false;
             match("if");
             match("(");
             Condicion(etiqueta);
@@ -322,7 +325,10 @@ namespace Ensamblador
             }
             if (Contenido == "else")
             {
+                asm.WriteLine("\tjmp " + etiqueta);
                 match("else");
+                HayElse = true;
+                asm.WriteLine(etiquetaElse + ":");
                 if (Contenido == "{")
                 {
                     bloqueInstrucciones();
@@ -331,8 +337,16 @@ namespace Ensamblador
                 {
                     Instruccion();
                 }
+                asm.WriteLine("\tjmp " + FinElse);
             }
             asm.WriteLine(etiqueta + ":");
+            if (HayElse)
+            {
+                asm.WriteLine("\tjmp "+ etiquetaElse);
+                asm.WriteLine(FinElse + ":");
+            }
+           
+            
             //generar una etiqueta
         }
         // Condicion -> Expresion operadorRelacional Expresion
@@ -342,8 +356,8 @@ namespace Ensamblador
             string operador = Contenido;
             match(Tipos.OpRelacional);
             Expresion(); // E2
-            asm.WriteLine("\tpop eax");
             asm.WriteLine("\tpop ebx");
+            asm.WriteLine("\tpop eax");
             asm.WriteLine("\tcmp eax, ebx");
             switch (operador)
             {
@@ -609,7 +623,7 @@ namespace Ensamblador
                     throw new Error("La variable (" + Contenido + ") no está declarada en la linea ", log, linea);
                 }
                 var v = listaVariables.Find(delegate (Variable x) { return x.getNombre() == Contenido; });
-                asm.WriteLine("\tmov eax, " + Contenido);
+                asm.WriteLine("\tmov eax, [" + Contenido + "]");
                 asm.WriteLine("\tpush eax");
                 match(Tipos.Identificador);
 
