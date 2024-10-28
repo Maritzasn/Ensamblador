@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 /*
     El proyecto genera el código ASM en:  nasm, masm, ... , excepto emu8086
-    1. Completar la asignación
+    1. Completar la asignación - listo
     2. Hacer el Console.Write y el Console.WriteLine
     3. Hacer el Read y el ReadLine
-    4. Considerar el else en el if
+    4. Considerar el else en el if - listo
     5. Programas el While - listo
-    6. Programar el For (pendiente de revisar si funciona correctamente)
+    6. Programar el For - listo
     Tarea: descargar el IDE
 */
 
@@ -325,6 +325,7 @@ namespace Ensamblador
             }
             if (Contenido == "else")
             {
+                asm.WriteLine("; Else");
                 asm.WriteLine("\tjmp " + etiqueta);
                 match("else");
                 HayElse = true;
@@ -362,9 +363,17 @@ namespace Ensamblador
             switch (operador)
             {
                 case ">":
+                    asm.WriteLine("\tjle " + etiqueta);
+                    break;
                 case ">=":
+                    asm.WriteLine("\tjl " + etiqueta);
+                    break;
                 case "<":
+                    asm.WriteLine("\tjge " + etiqueta);
+                    break;
                 case "<=":
+                    asm.WriteLine("\tjg " + etiqueta);
+                    break;
                 case "==":
                     asm.WriteLine("\tjne " + etiqueta);
                     break;
