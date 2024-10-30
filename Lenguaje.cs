@@ -10,7 +10,7 @@ using System.Threading.Tasks;
     El proyecto genera el código ASM en:  nasm, masm, ... , excepto emu8086
     1. Completar la asignación - listo
     2. Hacer el Console.Write y el Console.WriteLine
-    3. Hacer el Read y el ReadLine
+    3. Hacer el Read y el ReadLine 
     4. Considerar el else en el if - listo
     5. Programas el While - listo
     6. Programar el For - listo
