@@ -1,12 +1,19 @@
 static void Main(string[] args)
 {
-    int x, y;
-
-    x = (3 + 5) * 8 - (10 - 4) / 2; // 61
-    x++;                            // 62
-
-    for (x = 0; x != 10; x++)
+    int altura,i;
+    altura=5;
+    int k;
+    k=1;
+    float j;
+    for (i = 1; k<=altura; k++) // mandar false y pedir de retorno el valor de la asignacion
     {
-        y = x * 2;
+        for (j = 1; j<=k; j++)
+        {
+            if (j%2==0)
+                {Console.Write("*");}
+            else
+                {Console.Write("-");}
+        }
+        Console.WriteLine("");
     }
 }

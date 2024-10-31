@@ -11,80 +11,101 @@ segment .text
 	global main
 
 main:
-; Asignacion a x
-	mov eax, 3
-	push eax
+; Asignacion a altura
 	mov eax, 5
 	push eax
-	pop ebx
 	pop eax
-	add eax, ebx
-	push eax
-	mov eax, 8
-	push eax
-	pop ebx
-	pop eax
-	mul ebx
-	push eax
-	mov eax, 10
-	push eax
-	mov eax, 4
-	push eax
-	pop ebx
-	pop eax
-	sub eax, ebx
-	push eax
-	mov eax, 2
-	push eax
-	pop ebx
-	pop eax
-	div ebx
-	push eax
-	pop ebx
-	pop eax
-	sub eax, ebx
+	mov dword [altura], eax
+; Termina asignacion a altura
+; Asignacion a k
+	mov eax, 1
 	push eax
 	pop eax
-	mov dword [x], eax
-; Termina asignacion a x
-; Asignacion a x
-	inc dword [x]
-; Termina asignacion a x
+	mov dword [k], eax
+; Termina asignacion a k
 ; For 0
-; Asignacion a x
-	mov eax, 0
+; Asignacion a i
+	mov eax, 1
 	push eax
 	pop eax
-	mov dword [x], eax
-; Termina asignacion a x
+	mov dword [i], eax
+; Termina asignacion a i
 _ForCond1:
-	mov eax, [x]
+	mov eax, [k]
 	push eax
-	mov eax, 10
+	mov eax, [altura]
 	push eax
 	pop ebx
 	pop eax
 	cmp eax, ebx
-	je ForFin2
+	jg ForFin2
 	jmp _ForIni0
 _ForIncr3:
-; Asignacion a x
-	inc dword [x]
-; Termina asignacion a x
+; Asignacion a k
+	inc dword [k]
+; Termina asignacion a k
 	jmp _ForCond1
 _ForIni0:
-; Asignacion a y
-	mov eax, [x]
+; For 4
+; Asignacion a j
+	mov eax, 1
+	push eax
+	pop eax
+	mov dword [j], eax
+; Termina asignacion a j
+_ForCond5:
+	mov eax, [j]
+	push eax
+	mov eax, [k]
+	push eax
+	pop ebx
+	pop eax
+	cmp eax, ebx
+	jg ForFin6
+	jmp _ForIni4
+_ForIncr7:
+; Asignacion a j
+	inc dword [j]
+; Termina asignacion a j
+	jmp _ForCond5
+_ForIni4:
+; If1
+	mov eax, [j]
 	push eax
 	mov eax, 2
 	push eax
 	pop ebx
 	pop eax
-	mul ebx
+	xor edx, edx
+	div ebx
+	push edx
+	mov eax, 0
 	push eax
+	pop ebx
 	pop eax
-	mov dword [y], eax
-; Termina asignacion a y
+	cmp eax, ebx
+	jne _IF1
+	push dword Cadena1
+	call printf
+	add esp, 4
+; Else
+	jmp _IF1
+_Else1:
+	push dword Cadena2
+	call printf
+	add esp, 4
+	jmp _FinElse2
+_IF1:
+	jmp _Else1
+_FinElse2:
+	jmp _ForIncr7
+ForFin6:
+	push dword Cadena3
+	call printf
+	add esp, 4
+	push dword Cadena4
+	call printf
+	add esp, 4
 	jmp _ForIncr3
 ForFin2:
 	add esp, 4
@@ -94,5 +115,11 @@ ForFin2:
 	int 0x80
 
 segment .data
-	x dd 0
-	y dd 0
+	altura dd 0
+	i dd 0
+	k dd 0
+	j dw 0 
+	Cadena1 db '*', 0
+	Cadena2 db '-', 0
+	Cadena3 db '', 0
+	Cadena4 db 10, 0

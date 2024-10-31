@@ -22,20 +22,24 @@ namespace Ensamblador
     public class Lenguaje : Sintaxis
     {
         private List<Variable> listaVariables;
-        private int cIFs, cDos, cWhiles, cFors, cElses;
+        private List<Cadena> listaCadenas;
+
+        private int cIFs, cDos, cWhiles, cFors, cElses, nCadenas;
         public Lenguaje()
         {
             log.WriteLine("Analizador Sintactico");
             asm.WriteLine("; Analizador Sintactico");
 
             listaVariables = new List<Variable>();
-            cIFs = cDos = cWhiles = cElses = 1;
+            listaCadenas = new List<Cadena>();
+            cIFs = cDos = cWhiles = cElses = nCadenas = 1;
         }
         public Lenguaje(string nombre) : base(nombre)
         {
             log.WriteLine("Analizador Sintactico");
             listaVariables = new List<Variable>();
-            cIFs = cDos = cWhiles = cElses = 1;
+            listaCadenas = new List<Cadena>();
+            cIFs = cDos = cWhiles = cElses = nCadenas = 1;
         }
         // Programa  -> Librerias? Main
         public void Programa()
@@ -105,6 +109,17 @@ namespace Ensamblador
                 {
                     asm.WriteLine("\t" + v.getNombre() + " dw 0 ");
                 }
+            }
+
+            foreach (Cadena c in listaCadenas)
+            {
+                if (c.Contenido == "10")
+                {
+                    asm.WriteLine("\t" + c.Nombre + " db 10, 0");
+                }
+                else{
+                    asm.WriteLine("\t"+c.Nombre+" db '"+c.Contenido+"', 0");
+                } 
             }
         }
         private bool existeVariable(string nombre)
@@ -469,9 +484,11 @@ namespace Ensamblador
         {
             match("Console");
             match(".");
+            bool salto = false;
             if (Contenido == "WriteLine")
             {
                 match("WriteLine");
+                salto = true;
             }
             else
             {
@@ -480,11 +497,26 @@ namespace Ensamblador
             match("(");
             if (Clasificacion == Tipos.Cadena)
             {
-
+                string cadena = Contenido;
+                cadena = cadena.Remove(cadena.Length - 1);
+                cadena = cadena.Replace("\"", "");
+                string nameCadena = "Cadena" + nCadenas++;
+                listaCadenas.Add(new Cadena(nameCadena, cadena));
+                asm.WriteLine("\tpush dword " + nameCadena);
+                asm.WriteLine("\tcall printf");
+                asm.WriteLine("\tadd esp, 4");
                 match(Tipos.Cadena);
                 if (Contenido == "+")
                 {
                     listaConcatenacion();
+                }
+                if (salto)
+                {
+                    nameCadena = "Cadena" + nCadenas++;
+                    listaCadenas.Add(new Cadena(nameCadena, "10"));
+                    asm.WriteLine("\tpush dword " + nameCadena);
+                    asm.WriteLine("\tcall printf");
+                    asm.WriteLine("\tadd esp, 4");
                 }
             }
             match(")");
@@ -495,7 +527,13 @@ namespace Ensamblador
             match("+");
             if (Clasificacion == Tipos.Cadena)
             {
+                string nameCadena = "Cadena" + nCadenas++;
+                listaCadenas.Add(new Cadena(nameCadena, Contenido));
+                asm.WriteLine("\tpush dword " + nameCadena);
+                asm.WriteLine("\tcall printf");
+                asm.WriteLine("\tadd esp, 4");
                 match(Tipos.Cadena);
+                
             }
             else
             {
@@ -504,7 +542,13 @@ namespace Ensamblador
                     throw new Error("La variable (" + Contenido + ") no está declarada, en la linea ", log, linea);
                 }
                 var v = listaVariables.Find(delegate (Variable x) { return x.getNombre() == Contenido; });
+                string nameCadena = "Cadena" + nCadenas++;
+                listaCadenas.Add(new Cadena(nameCadena, Contenido));
+                asm.WriteLine("\tpush dword " + nameCadena);
+                asm.WriteLine("\tcall printf");
+                asm.WriteLine("\tadd esp, 4");
                 match(Tipos.Identificador); // Validar que exista la variable
+                
             }
 
             if (Contenido == "+")
@@ -609,8 +653,9 @@ namespace Ensamblador
                         asm.WriteLine("\tpush eax");
                         break;
                     case "%":
+                        asm.WriteLine("\txor edx, edx"); 
                         asm.WriteLine("\tdiv ebx");
-                        asm.WriteLine("\tpush dx");
+                        asm.WriteLine("\tpush edx");
                         break;
                 }
             }
