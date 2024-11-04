@@ -28,3 +28,18 @@ D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\ref
 D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.pdb
 D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\Ensamblador.genruntimeconfig.cache
 D:\Semestres\7mo\LENGUAJES Y AUTOMATAS\Proyecto\Ensamblador\obj\Debug\net8.0\ref\Ensamblador.dll
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\bin\Debug\net8.0\Ensamblador.exe
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\bin\Debug\net8.0\Ensamblador.deps.json
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\bin\Debug\net8.0\Ensamblador.runtimeconfig.json
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\bin\Debug\net8.0\Ensamblador.dll
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\bin\Debug\net8.0\Ensamblador.pdb
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.AssemblyInfoInputs.cache
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.AssemblyInfo.cs
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.csproj.CoreCompileInputs.cache
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.sourcelink.json
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.dll
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\refint\Ensamblador.dll
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.pdb
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\Ensamblador.genruntimeconfig.cache
+C:\Users\beren\Documents\ITQ\Semestre 7\2.Lenguajes y Autómatas II - Guillermo Fernandez Romero\Ensamblador1\Ensamblador\obj\Debug\net8.0\ref\Ensamblador.dll

@@ -1,4 +1,6 @@
-; Autor: Camila Patricia Mata Gallegos
+; Autor: Camila Patricia Mata Gallegos 
+; Maritza Belen Nuñez 
+; Berenice Hernandez Juarez
 ; Analisis léxico
 ; Analizador Sintactico
 
@@ -12,10 +14,12 @@ segment .text
 
 main:
 ; Asignacion a altura
-	mov eax, 5
+	mov eax, entero
+	mov ebx, altura
+	push ebx
 	push eax
-	pop eax
-	mov dword [altura], eax
+	call scanf
+	add esp,8
 ; Termina asignacion a altura
 ; Asignacion a k
 	mov eax, 1
@@ -123,3 +127,6 @@ segment .data
 	Cadena2 db '-', 0
 	Cadena3 db '', 0
 	Cadena4 db 10, 0
+	entero db "%d",0
+	caracter db "%c",0
+	flotante db "%f",0

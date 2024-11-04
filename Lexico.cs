@@ -60,7 +60,7 @@ namespace Ensamblador
             asm = new StreamWriter(Path.GetFileNameWithoutExtension(nombre) + ".asm");
             asm.AutoFlush = true;
             linea = 1;
-            asm.WriteLine("; Autor: Camila Patricia Mata Gallegos \n Maritza Belen Nuñez \n Berenice Hernandez Juarez");
+            asm.WriteLine("; Autor: Camila Patricia Mata Gallegos \n; Maritza Belen Nuñez \n; Berenice Hernandez Juarez");
             asm.WriteLine("; Analisis léxico");
             
 

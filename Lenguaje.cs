@@ -109,6 +109,7 @@ namespace Ensamblador
                 {
                     asm.WriteLine("\t" + v.getNombre() + " dw 0 ");
                 }
+
             }
 
             foreach (Cadena c in listaCadenas)
@@ -117,10 +118,14 @@ namespace Ensamblador
                 {
                     asm.WriteLine("\t" + c.Nombre + " db 10, 0");
                 }
-                else{
-                    asm.WriteLine("\t"+c.Nombre+" db '"+c.Contenido+"', 0");
-                } 
+                else
+                {
+                    asm.WriteLine("\t" + c.Nombre + " db '" + c.Contenido + "', 0");
+                }
             }
+            asm.WriteLine("\tentero db \"%d\",0");
+            asm.WriteLine("\tcaracter db \"%c\",0");
+            asm.WriteLine("\tflotante db \"%f\",0");
         }
         private bool existeVariable(string nombre)
         {
@@ -223,7 +228,6 @@ namespace Ensamblador
             var v = listaVariables.Find(delegate (Variable x) { return x.getNombre() == variable; });
             float nuevoValor = v.getValor();
 
-
             if (Contenido == "=")
             {
                 match("=");
@@ -241,6 +245,24 @@ namespace Ensamblador
                     }
                     match("(");
                     match(")");
+                    if (v.getTipo() == Variable.TipoDato.Char)
+                    {
+                        asm.WriteLine("\tmov eax, caracter");
+                    }
+                    else if (v.getTipo() == Variable.TipoDato.Int)
+                    {
+                        asm.WriteLine("\tmov eax, entero");
+                    }
+                    else
+                    {
+                        asm.WriteLine("\tmov eax, flotante ");
+                    }
+                    asm.WriteLine("\tmov ebx, " + variable);
+                    asm.WriteLine("\tpush ebx");
+                    asm.WriteLine("\tpush eax");
+                    asm.WriteLine("\tcall scanf");
+                    asm.WriteLine("\tadd esp,8");
+
                 }
                 else
                 {
@@ -259,7 +281,7 @@ namespace Ensamblador
             else if (Contenido == "--")
             {
                 match("--");
-                asm.WriteLine("\tdec dword [" + variable+"]");
+                asm.WriteLine("\tdec dword [" + variable + "]");
                 nuevoValor--;
             }
             else if (Contenido == "+=")
@@ -291,7 +313,7 @@ namespace Ensamblador
             {
                 match("/=");
                 Expresion();
-                
+
                 asm.WriteLine("\tpop ebx");
                 asm.WriteLine("\tmov eax, dword [" + variable + "]");
                 asm.WriteLine("\tdiv ebx");
@@ -301,7 +323,7 @@ namespace Ensamblador
             {
                 match("%=");
                 Expresion();
-                
+
                 asm.WriteLine("\tpop ebx");
                 asm.WriteLine("\tmov eax, dword [" + variable + "]");
                 asm.WriteLine("\txor edx, edx");
@@ -358,11 +380,11 @@ namespace Ensamblador
             asm.WriteLine(etiqueta + ":");
             if (HayElse)
             {
-                asm.WriteLine("\tjmp "+ etiquetaElse);
+                asm.WriteLine("\tjmp " + etiquetaElse);
                 asm.WriteLine(FinElse + ":");
             }
-           
-            
+
+
             //generar una etiqueta
         }
         // Condicion -> Expresion operadorRelacional Expresion
@@ -457,11 +479,11 @@ namespace Ensamblador
             Asignacion();
             match(";");
             asm.WriteLine(etiquetaCond + ":");
-            Condicion(etiquetaFin); 
+            Condicion(etiquetaFin);
             match(";");
             asm.WriteLine("\tjmp " + etiquetaIni);
             asm.WriteLine(etiquetaIncremento + ":");
-            Asignacion(); 
+            Asignacion();
             asm.WriteLine("\tjmp " + etiquetaCond);
             match(")");
             asm.WriteLine(etiquetaIni + ":");
@@ -533,7 +555,7 @@ namespace Ensamblador
                 asm.WriteLine("\tcall printf");
                 asm.WriteLine("\tadd esp, 4");
                 match(Tipos.Cadena);
-                
+
             }
             else
             {
@@ -548,7 +570,7 @@ namespace Ensamblador
                 asm.WriteLine("\tcall printf");
                 asm.WriteLine("\tadd esp, 4");
                 match(Tipos.Identificador); // Validar que exista la variable
-                
+
             }
 
             if (Contenido == "+")
@@ -653,7 +675,7 @@ namespace Ensamblador
                         asm.WriteLine("\tpush eax");
                         break;
                     case "%":
-                        asm.WriteLine("\txor edx, edx"); 
+                        asm.WriteLine("\txor edx, edx");
                         asm.WriteLine("\tdiv ebx");
                         asm.WriteLine("\tpush edx");
                         break;

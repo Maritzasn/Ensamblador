@@ -1,7 +1,7 @@
 static void Main(string[] args)
 {
     int altura,i;
-    altura=5;
+    altura=Console.ReadLine();
     int k;
     k=1;
     float j;
