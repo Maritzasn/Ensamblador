@@ -23,6 +23,7 @@ namespace Ensamblador
     {
         private List<Variable> listaVariables;
         private List<Cadena> listaCadenas;
+        private List<string> listaImprime;
 
         private int cIFs, cDos, cWhiles, cFors, cElses, nCadenas;
         public Lenguaje()
@@ -32,6 +33,7 @@ namespace Ensamblador
 
             listaVariables = new List<Variable>();
             listaCadenas = new List<Cadena>();
+            listaImprime = new List<string>();
             cIFs = cDos = cWhiles = cElses = nCadenas = 1;
         }
         public Lenguaje(string nombre) : base(nombre)
@@ -39,6 +41,7 @@ namespace Ensamblador
             log.WriteLine("Analizador Sintactico");
             listaVariables = new List<Variable>();
             listaCadenas = new List<Cadena>();
+            listaImprime = new List<string>();
             cIFs = cDos = cWhiles = cElses = nCadenas = 1;
         }
         // Programa  -> Librerias? Main
@@ -120,12 +123,21 @@ namespace Ensamblador
                 }
                 else
                 {
-                    asm.WriteLine("\t" + c.Nombre + " db '" + c.Contenido + "', 0");
+                    asm.WriteLine("\t" + c.Nombre + " db \"" + c.Contenido + "\", 0");
                 }
             }
             asm.WriteLine("\tentero db \"%d\",0");
             asm.WriteLine("\tcaracter db \"%c\",0");
             asm.WriteLine("\tflotante db \"%f\",0");
+            asm.WriteLine("\tcadena db \"%s\",0");
+
+            asm.WriteLine("\tbuffer db 10, 0");
+            asm.WriteLine("\nsegment .bss");
+            foreach (string var in listaImprime)
+            {
+                asm.WriteLine("\t" + var + " resb 16 ");
+            }
+
         }
         private bool existeVariable(string nombre)
         {
@@ -139,8 +151,10 @@ namespace Ensamblador
         // ListaIdentificadores -> identificador (,ListaIdentificadores)?
         private void listaIdentificadores(Variable.TipoDato t)
         {
+            string var;
             if (!existeVariable(Contenido))
             {
+                var = Contenido;
                 listaVariables.Add(new Variable(Contenido, t));
 
             }
@@ -154,7 +168,8 @@ namespace Ensamblador
             {
                 match("=");
                 Expresion();
-                asm.WriteLine("\tpop");
+                asm.WriteLine("\tpop eax");
+                asm.WriteLine("\tmov dword [" +var+ "], eax");
                 //MODIFICAR EL VALOR
             }
             if (Contenido == ",")
@@ -257,12 +272,16 @@ namespace Ensamblador
                     {
                         asm.WriteLine("\tmov eax, flotante ");
                     }
-                    asm.WriteLine("\tmov ebx, " + variable);
-                    asm.WriteLine("\tpush ebx");
-                    asm.WriteLine("\tpush eax");
-                    asm.WriteLine("\tcall scanf");
-                    asm.WriteLine("\tadd esp,8");
+                    
+                    string nameCadena = "Cadena" + nCadenas++;
+                    listaImprime.Add(nameCadena);
+                    asm.WriteLine("\tmov eax, 0");
+                    asm.WriteLine("\tmov ebx, 0");
+                    asm.WriteLine("\tmov ecx,"+nameCadena);
+                    asm.WriteLine("\tmov edx, 16");
+                    asm.WriteLine("\tsyscall");
 
+                    asm.WriteLine("\tmov dword ["+variable +"],"+nameCadena);
                 }
                 else
                 {
@@ -471,7 +490,7 @@ namespace Ensamblador
             asm.WriteLine("; For " + cFors);
             string etiquetaIni = "_ForIni" + cFors++;
             string etiquetaCond = "_ForCond" + cFors++;
-            string etiquetaFin = "ForFin" + cFors++;
+            string etiquetaFin = "_ForFin" + cFors++;
             string etiquetaIncremento = "_ForIncr" + cFors++;
 
             match("for");
@@ -480,8 +499,8 @@ namespace Ensamblador
             match(";");
             asm.WriteLine(etiquetaCond + ":");
             Condicion(etiquetaFin);
-            match(";");
             asm.WriteLine("\tjmp " + etiquetaIni);
+            match(";");
             asm.WriteLine(etiquetaIncremento + ":");
             Asignacion();
             asm.WriteLine("\tjmp " + etiquetaCond);
@@ -524,9 +543,11 @@ namespace Ensamblador
                 cadena = cadena.Replace("\"", "");
                 string nameCadena = "Cadena" + nCadenas++;
                 listaCadenas.Add(new Cadena(nameCadena, cadena));
-                asm.WriteLine("\tpush dword " + nameCadena);
-                asm.WriteLine("\tcall printf");
-                asm.WriteLine("\tadd esp, 4");
+                asm.WriteLine("\tmov eax,4");
+                asm.WriteLine("\tmov ebx,1");
+                asm.WriteLine("\tmov ecx," + nameCadena);
+                asm.WriteLine("\tmov edx,"+(cadena.Length+1));
+                asm.WriteLine("\tint 0x80");
                 match(Tipos.Cadena);
                 if (Contenido == "+")
                 {
@@ -536,9 +557,11 @@ namespace Ensamblador
                 {
                     nameCadena = "Cadena" + nCadenas++;
                     listaCadenas.Add(new Cadena(nameCadena, "10"));
-                    asm.WriteLine("\tpush dword " + nameCadena);
-                    asm.WriteLine("\tcall printf");
-                    asm.WriteLine("\tadd esp, 4");
+                    asm.WriteLine("\tmov eax,4");
+                    asm.WriteLine("\tmov ebx,1");
+                    asm.WriteLine("\tmov ecx," + nameCadena);
+                    asm.WriteLine("\tmov edx, 10");
+                    asm.WriteLine("\tint 0x80");
                 }
             }
             match(")");
@@ -551,9 +574,11 @@ namespace Ensamblador
             {
                 string nameCadena = "Cadena" + nCadenas++;
                 listaCadenas.Add(new Cadena(nameCadena, Contenido));
-                asm.WriteLine("\tpush dword " + nameCadena);
-                asm.WriteLine("\tcall printf");
-                asm.WriteLine("\tadd esp, 4");
+                asm.WriteLine("\tmov eax,4");
+                asm.WriteLine("\tmov ebx,1");
+                asm.WriteLine("\tmov ecx," + nameCadena);
+                asm.WriteLine("\tmov edx,"+(Contenido.Length+1));
+                asm.WriteLine("\tint 0x80");
                 match(Tipos.Cadena);
 
             }
@@ -564,11 +589,27 @@ namespace Ensamblador
                     throw new Error("La variable (" + Contenido + ") no está declarada, en la linea ", log, linea);
                 }
                 var v = listaVariables.Find(delegate (Variable x) { return x.getNombre() == Contenido; });
-                string nameCadena = "Cadena" + nCadenas++;
-                listaCadenas.Add(new Cadena(nameCadena, Contenido));
-                asm.WriteLine("\tpush dword " + nameCadena);
-                asm.WriteLine("\tcall printf");
-                asm.WriteLine("\tadd esp, 4");
+                asm.WriteLine("\tmov eax,["+Contenido+"]");
+                asm.WriteLine("\tmov edi, buffer");
+                asm.WriteLine("\tadd edi, 9");
+                asm.WriteLine("\tmov ecx, 10  ");
+                asm.WriteLine("\t;Conversion");
+
+                asm.WriteLine("\tconvertir: ");
+                asm.WriteLine("\txor edx, edx");
+                asm.WriteLine("\tdiv ecx");
+                asm.WriteLine("\tadd dl, '0'");
+                asm.WriteLine("\tdec edi");
+                asm.WriteLine("\tmov [edi], dl");
+                asm.WriteLine("\ttest eax, eax ");
+                asm.WriteLine("\tjnz convertir");
+     
+                asm.WriteLine("\tmov eax, 4");
+                asm.WriteLine("\tmov ebx, 1");
+                asm.WriteLine("\tmov ecx, edi");
+                asm.WriteLine("\tmov edx, 10");
+                asm.WriteLine("\tint 0x80");
+
                 match(Tipos.Identificador); // Validar que exista la variable
 
             }
@@ -588,8 +629,8 @@ namespace Ensamblador
             asm.WriteLine("extern scanf");
             asm.WriteLine("extern stdout");
             asm.WriteLine("\nsegment .text");
-            asm.WriteLine("\tglobal main");
-            asm.WriteLine("\nmain:");
+            asm.WriteLine("\tglobal _start");
+            asm.WriteLine("\n_start:");
         }
         private void asm_endMain()
         {
