@@ -5,11 +5,11 @@
 ; Analizador Sintactico
 
 extern fflush
-extern printf
-extern scanf
 extern stdout
 
 segment .text
+extern printf
+extern scanf
 	global _start
 
 _start:
@@ -33,25 +33,14 @@ _start:
 	pop eax
 	mov dword [c], eax
 ; Termina asignacion a c
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena1
-	mov edx,19
-	int 0x80
+	push Cadena1
+	call printf
+	add esp, 4
 ; Asignacion a altura
-	mov eax, entero
-	mov eax, 3
-	mov ebx, 0
-	mov ecx, buffer
-	mov edx, 10
-	int 0x80
-	mov dword [altura], buffer
-; Termina asignacion a altura
-; Asignacion a altura
-	mov eax, 5
-	push eax
-	pop eax
-	mov dword [altura], eax
+	push dword altura
+	push dword entero
+	call scanf
+	add esp, 8
 ; Termina asignacion a altura
 	mov eax, 3
 	push eax
@@ -176,35 +165,27 @@ _ForIni4:
 	pop eax
 	cmp eax, ebx
 	jne _IF1
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena3
-	mov edx,2
-	int 0x80
+	push Cadena2
+	call printf
+	add esp, 4
 ; Else
-	jmp _IF1
+	jmp _FinElse2
 _Else1:
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena4
-	mov edx,2
-	int 0x80
+	push Cadena3
+	call printf
+	add esp, 4
 	jmp _FinElse2
 _IF1:
 	jmp _Else1
 _FinElse2:
 	jmp _ForIncr7
 _ForFin6:
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena5
-	mov edx,1
-	int 0x80
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena6
-	mov edx, 10
-	int 0x80
+	push Cadena4
+	call printf
+	add esp, 4
+	push Cadena5
+	call printf
+	add esp, 4
 	jmp _ForIncr3
 _ForFin2:
 ; Asignacion a i
@@ -215,11 +196,9 @@ _ForFin2:
 ; Termina asignacion a i
 ; Do 1
 _DO1:
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena7
-	mov edx,2
-	int 0x80
+	push Cadena6
+	call printf
+	add esp, 4
 ; Asignacion a i
 	inc dword [i]
 ; Termina asignacion a i
@@ -236,17 +215,15 @@ _DO1:
 	pop ebx
 	pop eax
 	cmp eax, ebx
-	jge _DO1
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena8
-	mov edx,1
-	int 0x80
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena9
-	mov edx, 10
-	int 0x80
+	jge _DOFIN2
+	jmp _DO1
+_DOFIN2:
+	push Cadena7
+	call printf
+	add esp, 4
+	push Cadena8
+	call printf
+	add esp, 4
 ; For 8
 ; Asignacion a i
 	mov eax, 1
@@ -286,44 +263,25 @@ _WhileIn1:
 	pop eax
 	cmp eax, ebx
 	jg WhileFin2
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena10
-	mov edx,1
-	int 0x80
-	mov eax,[j]
-	mov edi, buffer
-	add edi, 9
-	mov ecx, 10  
-	;Conversion
-	convertir: 
-	xor edx, edx
-	div ecx
-	add dl, '0'
-	dec edi
-	mov [edi], dl
-	test eax, eax 
-	jnz convertir
-	mov eax, 4
-	mov ebx, 1
-	mov ecx, edi
-	mov edx, 10
-	int 0x80
+	push Cadena9
+	call printf
+	add esp, 4
+	mov edi, entero
+	mov esi, [j]
+	push esi
+	push edi
+	call printf
 ; Asignacion a j
 	inc dword [j]
 ; Termina asignacion a j
 	jmp _WhileIn1
 WhileFin2:
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena11
-	mov edx,1
-	int 0x80
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena12
-	mov edx, 10
-	int 0x80
+	push Cadena10
+	call printf
+	add esp, 4
+	push Cadena11
+	call printf
+	add esp, 4
 	jmp _ForIncr11
 _ForFin10:
 ; Asignacion a i
@@ -332,13 +290,11 @@ _ForFin10:
 	pop eax
 	mov dword [i], eax
 ; Termina asignacion a i
-; Do 2
-_DO2:
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena13
-	mov edx,2
-	int 0x80
+; Do 3
+_DO3:
+	push Cadena12
+	call printf
+	add esp, 4
 ; Asignacion a i
 	inc dword [i]
 ; Termina asignacion a i
@@ -355,17 +311,15 @@ _DO2:
 	pop ebx
 	pop eax
 	cmp eax, ebx
-	jge _DO2
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena14
-	mov edx,1
-	int 0x80
-	mov eax,4
-	mov ebx,1
-	mov ecx,Cadena15
-	mov edx, 10
-	int 0x80
+	jge _DOFIN4
+	jmp _DO3
+_DOFIN4:
+	push Cadena13
+	call printf
+	add esp, 4
+	push Cadena14
+	call printf
+	add esp, 4
 	add esp, 4
 
 	mov eax, 1
@@ -382,23 +336,23 @@ segment .data
 	x dw 0 
 	k dd 0
 	Cadena1 db "Valor de altura = ", 0
-	Cadena3 db "*", 0
-	Cadena4 db "-", 0
-	Cadena5 db "", 0
-	Cadena6 db 10, 0
-	Cadena7 db "-", 0
-	Cadena8 db "", 0
-	Cadena9 db 10, 0
+	Cadena2 db "*", 0
+	Cadena3 db "-", 0
+	Cadena4 db "", 0
+	Cadena5 db 10, 0
+	Cadena6 db "-", 0
+	Cadena7 db "", 0
+	Cadena8 db 10, 0
+	Cadena9 db "", 0
 	Cadena10 db "", 0
-	Cadena11 db "", 0
-	Cadena12 db 10, 0
-	Cadena13 db "-", 0
-	Cadena14 db "", 0
-	Cadena15 db 10, 0
+	Cadena11 db 10, 0
+	Cadena12 db "-", 0
+	Cadena13 db "", 0
+	Cadena14 db 10, 0
 	entero db "%d",0
 	caracter db "%c",0
 	flotante db "%f",0
+	cadena db "%s",0
 	buffer db 10, 0
 
 segment .bss
-	Cadena2 resb 16 
