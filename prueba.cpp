@@ -10,14 +10,14 @@ static void Main(string[] args)
     char c;
     
     c = (100+200);
-
     
     Console.Write("Valor de altura = ");
     altura = Console.ReadLine();
     float x = (3 + altura) * 8 - (10 - 4) / 2; // = 61
-    x--;
-    x+=(altura*8);
-    x*=2;
+
+    x--;//60
+    x+=(altura*8);//60+40=100
+    x*=2;//x=200
     // x/=(y-6);
     int k=1;
     for (i = 1; k<=altura; k++) // mandar false y pedir de retorno el valor de la asignacion

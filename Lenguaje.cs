@@ -111,23 +111,27 @@ namespace Ensamblador
                 }
 
             }
-
+            asm.WriteLine("\tSalto db 10, 0");
             foreach (Cadena c in listaCadenas)
             {
-                if (c.Contenido == "10")
-                {
-                    asm.WriteLine("\t" + c.Nombre + " db 10, 0");
-                }
-                else
-                {
-                    asm.WriteLine("\t" + c.Nombre + " db \"" + c.Contenido + "\", 0");
-                }
+                asm.WriteLine("\t" + c.Nombre + " db \"" + c.Contenido + "\", 0");
+
             }
             asm.WriteLine("\tentero db \"%d\",0");
             asm.WriteLine("\tcaracter db \"%c\",0");
             asm.WriteLine("\tflotante db \"%f\",0");
-            asm.WriteLine("\tcadena db \"%s\",0");
 
+        }
+
+        private string existeCadena(string contenido)
+        {
+            var c = listaCadenas.Find(c => c.Contenido == contenido);
+            if (c != null)
+            {
+                return c.Nombre;
+            }
+            else
+                return "";
         }
         private bool existeVariable(string nombre)
         {
@@ -159,7 +163,7 @@ namespace Ensamblador
                 match("=");
                 Expresion();
                 asm.WriteLine("\tpop eax");
-                asm.WriteLine("\tmov dword [" +var+ "], eax");
+                asm.WriteLine("\tmov dword [" + var + "], eax");
                 //MODIFICAR EL VALOR
             }
             if (Contenido == ",")
@@ -263,7 +267,7 @@ namespace Ensamblador
                     {
                         asm.WriteLine("\tpush dword flotante ");
                     }
-                    
+
                     asm.WriteLine("\tcall scanf");
                     asm.WriteLine("\tadd esp, 8");
                 }
@@ -528,8 +532,16 @@ namespace Ensamblador
                 string cadena = Contenido;
                 cadena = cadena.Remove(cadena.Length - 1);
                 cadena = cadena.Replace("\"", "");
-                string nameCadena = "Cadena" + nCadenas++;
-                listaCadenas.Add(new Cadena(nameCadena, cadena));
+                string nameCadena;
+                if (existeCadena(cadena) != "")
+                {
+                    nameCadena = existeCadena(cadena);
+                }
+                else
+                {
+                    nameCadena = "Cadena" + nCadenas++;
+                    listaCadenas.Add(new Cadena(nameCadena, cadena));
+                }
                 asm.WriteLine("\tpush " + nameCadena);
                 asm.WriteLine("\tcall printf");
                 asm.WriteLine("\tadd esp, 4");
@@ -540,9 +552,7 @@ namespace Ensamblador
                 }
                 if (salto)
                 {
-                    nameCadena = "Cadena" + nCadenas++;
-                    listaCadenas.Add(new Cadena(nameCadena, "10"));
-                    asm.WriteLine("\tpush " + nameCadena);
+                    asm.WriteLine("\tpush Salto");
                     asm.WriteLine("\tcall printf");
                     asm.WriteLine("\tadd esp, 4");
                 }
@@ -555,8 +565,16 @@ namespace Ensamblador
             match("+");
             if (Clasificacion == Tipos.Cadena)
             {
-                string nameCadena = "Cadena" + nCadenas++;
-                listaCadenas.Add(new Cadena(nameCadena, Contenido));
+                string nameCadena;
+                if (existeCadena(Contenido) != "")
+                {
+                    nameCadena = existeCadena(Contenido);
+                }
+                else
+                {
+                    nameCadena = "Cadena" + nCadenas++;
+                    listaCadenas.Add(new Cadena(nameCadena, Contenido));
+                }
                 asm.WriteLine("\tpush " + nameCadena);
                 asm.WriteLine("\tcall printf");
                 asm.WriteLine("\tadd esp, 4");
@@ -570,23 +588,15 @@ namespace Ensamblador
                     throw new Error("La variable (" + Contenido + ") no está declarada, en la linea ", log, linea);
                 }
                 var v = listaVariables.Find(delegate (Variable x) { return x.getNombre() == Contenido; });
-                if (v.getTipo() == Variable.TipoDato.Char)
-                    {
-                        asm.WriteLine("\tmov edi, caracter");
-                    }
-                    else if (v.getTipo() == Variable.TipoDato.Int)
-                    {
-                        asm.WriteLine("\tmov edi, entero");
-                    }
-                    else
-                    {
-                        asm.WriteLine("\tmov edi, flotante ");
-                    }
+                
+                asm.WriteLine("\tmov edi, entero");
                 asm.WriteLine("\tmov esi, [" + Contenido + "]");
                 asm.WriteLine("\tpush esi");
                 asm.WriteLine("\tpush edi");
-                //asm.WriteLine("\txor eax, eax");
                 asm.WriteLine("\tcall printf");
+                asm.WriteLine("\tadd esp, 8");
+                //asm.WriteLine("\txor eax, eax");
+
 
                 match(Tipos.Identificador); // Validar que exista la variable
 

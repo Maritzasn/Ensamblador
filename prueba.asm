@@ -183,7 +183,7 @@ _ForFin6:
 	push Cadena4
 	call printf
 	add esp, 4
-	push Cadena5
+	push Salto
 	call printf
 	add esp, 4
 	jmp _ForIncr3
@@ -196,7 +196,7 @@ _ForFin2:
 ; Termina asignacion a i
 ; Do 1
 _DO1:
-	push Cadena6
+	push Cadena3
 	call printf
 	add esp, 4
 ; Asignacion a i
@@ -218,10 +218,10 @@ _DO1:
 	jge _DOFIN2
 	jmp _DO1
 _DOFIN2:
-	push Cadena7
+	push Cadena4
 	call printf
 	add esp, 4
-	push Cadena8
+	push Salto
 	call printf
 	add esp, 4
 ; For 8
@@ -263,7 +263,7 @@ _WhileIn1:
 	pop eax
 	cmp eax, ebx
 	jg WhileFin2
-	push Cadena9
+	push Cadena4
 	call printf
 	add esp, 4
 	mov edi, entero
@@ -271,15 +271,16 @@ _WhileIn1:
 	push esi
 	push edi
 	call printf
+	add esp, 8
 ; Asignacion a j
 	inc dword [j]
 ; Termina asignacion a j
 	jmp _WhileIn1
 WhileFin2:
-	push Cadena10
+	push Cadena4
 	call printf
 	add esp, 4
-	push Cadena11
+	push Salto
 	call printf
 	add esp, 4
 	jmp _ForIncr11
@@ -292,7 +293,7 @@ _ForFin10:
 ; Termina asignacion a i
 ; Do 3
 _DO3:
-	push Cadena12
+	push Cadena3
 	call printf
 	add esp, 4
 ; Asignacion a i
@@ -314,10 +315,10 @@ _DO3:
 	jge _DOFIN4
 	jmp _DO3
 _DOFIN4:
-	push Cadena13
+	push Cadena4
 	call printf
 	add esp, 4
-	push Cadena14
+	push Salto
 	call printf
 	add esp, 4
 	add esp, 4
@@ -335,24 +336,11 @@ segment .data
 	c db 0
 	x dw 0 
 	k dd 0
+	Salto db 10, 0
 	Cadena1 db "Valor de altura = ", 0
 	Cadena2 db "*", 0
 	Cadena3 db "-", 0
 	Cadena4 db "", 0
-	Cadena5 db 10, 0
-	Cadena6 db "-", 0
-	Cadena7 db "", 0
-	Cadena8 db 10, 0
-	Cadena9 db "", 0
-	Cadena10 db "", 0
-	Cadena11 db 10, 0
-	Cadena12 db "-", 0
-	Cadena13 db "", 0
-	Cadena14 db 10, 0
 	entero db "%d",0
 	caracter db "%c",0
 	flotante db "%f",0
-	cadena db "%s",0
-	buffer db 10, 0
-
-segment .bss
